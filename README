@@ -1,1 +1,6 @@
 Website benchmark tool
+
+Example:
+>> require 'webmeter'
+>> Webmeter::Benchmark.bench(Webmeter::Parser.new("../access.log").urls)
+
