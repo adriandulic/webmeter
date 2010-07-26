@@ -1,6 +1,4 @@
-#!/usr/bin/env ruby
 require 'net/http'
-require 'parser'
 
 module Webmeter
   class Benchmark
@@ -20,7 +18,3 @@ module Webmeter
     end
   end
 end
-
-p = Webmeter::Parser.new("access.log")
-Webmeter::Benchmark.bench(p.urls)
-
