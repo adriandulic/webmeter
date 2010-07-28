@@ -1,4 +1,4 @@
 Website benchmark tool
 
 Example:
-./bin/webmeter [ARGS]
+./bin/webmeter example.com
