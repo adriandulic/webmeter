@@ -4,14 +4,14 @@ module Webmeter
       @filename = filename || "access.log"
     end
 
-    def urls
-      f = File.new(@filename)
+    def parse
+      file = File.new(@filename)
       matches = []
-      f.each { |l|
-        match = l.match(/GET (.*?) HTTP/i)
-        matches << match if match
+      file.each { |log|
+        match = log.match(/GET (.*?) HTTP/)
+        matches << match[1] if not match.nil?
       }
-      matches.map { |m| m[1].strip if m }
+      matches.map(&:strip)
     end
   end
 end
