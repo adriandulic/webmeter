@@ -1,4 +1,5 @@
 require 'webmeter'
+require 'optparse'
 
 module Webmeter
   class CLI
@@ -14,7 +15,23 @@ module Webmeter
     end
 
     def execute
-      Benchmark.bench(@options.first)
+      params = {}
+      optparse = OptionParser.new do |opts|
+        opts.on('-h', '--help', 'Display this screen') do
+          puts opts
+          exit
+        end
+        params[:address] = "www.example.com"
+        opts.on('-a', '--address [OPT]', String, 'Website address') do |address|
+          params[:address] = address
+        end
+        params[:workers] = 1
+        opts.on('-w', '--workers [OPT]', Integer, 'Number of workers') do |workers|
+          params[:workers] = workers
+        end
+      end
+      optparse.parse!
+      Benchmark.bench(params)
     end
   end
 end

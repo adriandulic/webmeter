@@ -1,28 +1,29 @@
 module Webmeter
   class Benchmark
-    def self.bench(host = "www.example.com")
+    def self.bench(params)
+      parser = Parser.new(params[:file] || "access.log")
+      paths = parser.parse
       
-      parser = Parser.new("access.log")
-      paths = parser.parse # first 20 paths to request
-      workers = 10 # number of users
+      params[:workers] ||= 25
+      params[:address] ||= "example.com"
       
-      threads = []
-      workers.times { |w|
-        worker = Worker.new(host, paths)
+      workers = []
+      params[:workers].times { |w|
+        worker = Worker.new(params[:address], paths)
         worker.user_agent = w
-        threads << worker.run
+        workers << worker.run
       }
       
       start = Time.now
-      threads.each { |thread| thread.join }
+      workers.each { |w| w.join }
       time = (Time.now - start).to_f
-      requests = paths.size * workers
-      rps = requests / time;
-
-      puts "Webmeter #{host}"
+      
+      requests = paths.size * params[:workers]
+      
+      puts "Webmeter #{params[:address]}"
       puts "Time taken for test #{time}"
       puts "Requests #{requests}"
-      puts "Req/sec #{rps}"
+      puts "Req/sec #{requests/time}"
     end
   end
 end

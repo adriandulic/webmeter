@@ -2,14 +2,14 @@ require 'net/http'
 
 module Webmeter
   class Worker
-    attr_accessor :user_agent
+    attr_accessor :user_agent, :host, :paths
     
     def initialize(host, paths)
       @host = host
       @paths = paths
     end
 
-    def requests
+    def work
       @paths.each { |path|
         req = Net::HTTP::Get.new(path, {'User-Agent' => "Webmeter/worker-#{@user_agent}"})
         req.basic_auth('user', 'password')
@@ -18,7 +18,7 @@ module Webmeter
     end
 
     def run
-      Thread.new { requests }
+      Thread.new { work }
     end
   end
 end
