@@ -9,7 +9,7 @@ module Webmeter
       threads = []
       workers.times { |w|
         worker = Worker.new(host, paths)
-        worker.user_agent(w)
+        worker.user_agent = w
         threads << worker.run
       }
       

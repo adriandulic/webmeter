@@ -2,8 +2,7 @@ require 'net/http'
 
 module Webmeter
   class Worker
-    attr_accessor :http, :paths, :user_agent
-    attr_accessor :success, :redirect, :client_error, :server_error
+    attr_accessor :user_agent
     
     def initialize(host, paths)
       @host = host
@@ -13,13 +12,9 @@ module Webmeter
     def requests
       @paths.each { |path|
         req = Net::HTTP::Get.new(path, {'User-Agent' => "Webmeter/worker-#{@user_agent}"})
-        req.basic_auth('odloty', 'alpha1s')
+        req.basic_auth('user', 'password')
         res = Net::HTTP.new(@host).start { |http| http.request(req) }
       }
-    end
-
-    def user_agent(name)
-      @user_agent = name
     end
 
     def run
