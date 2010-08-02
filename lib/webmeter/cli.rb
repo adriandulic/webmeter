@@ -33,6 +33,10 @@ module Webmeter
         opts.on('-f', '--file [OPT]', String, 'Log file') do |file|
           params[:file] = file
         end
+        params[:limit] = nil
+        opts.on('-l', '--limit [OPT]', Integer, 'Limit requests') do |limit|
+          params[:limit] = limit
+        end
       end
       optparse.parse!
       Benchmark.bench(params)

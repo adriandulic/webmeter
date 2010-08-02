@@ -4,7 +4,11 @@ module Webmeter
       params[:paths] ||= Parser.new(params[:file]).parse || ["/"]
       params[:workers] ||= 25
       params[:address] ||= "example.com"
-      
+
+      if params[:limit]
+        params[:paths] = params[:paths][0, params[:limit]]
+      end
+
       workers = []
       params[:workers].times { |w|
         worker = Worker.new(params[:address], params[:paths])
