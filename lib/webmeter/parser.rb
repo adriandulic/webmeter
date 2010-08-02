@@ -1,9 +1,9 @@
 module Webmeter
   class Parser
     def initialize(filename)
-      @filename = filename || "access.log"
+      @filename = filename
     end
-
+    
     def parse
       file = File.new(@filename)
       matches = []

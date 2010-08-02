@@ -8,7 +8,7 @@ module Webmeter
       @host = host
       @paths = paths
     end
-
+    
     def work
       @paths.each { |path|
         req = Net::HTTP::Get.new(path, {'User-Agent' => "Webmeter/worker-#{@user_agent}"})
@@ -16,7 +16,7 @@ module Webmeter
         res = Net::HTTP.new(@host).start { |http| http.request(req) }
       }
     end
-
+    
     def run
       Thread.new { work }
     end

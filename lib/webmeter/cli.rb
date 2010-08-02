@@ -8,12 +8,12 @@ module Webmeter
     def self.execute(options = nil)
       new(options || ARGV)
     end
-
+    
     def initialize(options)
       @options = options
       execute
     end
-
+    
     def execute
       params = {}
       optparse = OptionParser.new do |opts|
@@ -28,6 +28,10 @@ module Webmeter
         params[:workers] = 1
         opts.on('-w', '--workers [OPT]', Integer, 'Number of workers') do |workers|
           params[:workers] = workers
+        end
+        params[:file] = "access.log"
+        opts.on('-f', '--file [OPT]', String, 'Log file') do |file|
+          params[:file] = file
         end
       end
       optparse.parse!
