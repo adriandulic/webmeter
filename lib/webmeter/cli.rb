@@ -22,19 +22,19 @@ module Webmeter
           exit
         end
         params[:address] = "www.example.com"
-        opts.on('-a', '--address [OPT]', String, 'Website address') do |address|
+        opts.on('-a', '--address <domain>', String, 'Website address') do |address|
           params[:address] = address
         end
         params[:workers] = 1
-        opts.on('-w', '--workers [OPT]', Integer, 'Number of workers') do |workers|
+        opts.on('-w', '--workers <number>', Integer, 'Number of workers') do |workers|
           params[:workers] = workers
         end
         params[:file] = "access.log"
-        opts.on('-f', '--file [OPT]', String, 'Log file') do |file|
+        opts.on('-f', '--file <path>', String, 'Log file') do |file|
           params[:file] = file
         end
         params[:limit] = nil
-        opts.on('-l', '--limit [OPT]', Integer, 'Limit requests') do |limit|
+        opts.on('-l', '--limit <number>', Integer, 'Limit requests') do |limit|
           params[:limit] = limit
         end
       end
