@@ -1,4 +1,13 @@
+Webmeter
+========
+
 Website benchmark tool
 
-Example:
-./bin/webmeter example.com
+## Example
+
+    webmeter -a example.com
+
+
+## More
+
+    webmeter -h
